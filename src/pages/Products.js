@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import MarkdownPreview from "@uiw/react-markdown-preview";
 import SuccessTick from "../assets/images/success-tick.png";
 import Navbar from "../components/Navbar";
 import Content from "../components/Content";
@@ -522,10 +523,10 @@ export default function Products() {
 																	<button title="View Product Full Details"
 																		onClick={() => {
 																			getAProduct(data.unique_id);
-																		}} className="xui-d-inline-flex xui-flex-ai-center xui-btn psc-btn-blue xui-bdr-rad-half xui-font-sz-50" xui-modal-open="viewProductModal">
+																		}} className="xui-d-inline-flex xui-flex-ai-center xui-btn xui-btn-blue xui-bdr-rad-half xui-font-sz-50" xui-modal-open="viewProductModal">
 																		<EyeOpenAlt width="20" height="20" />
 																	</button>
-																	<Link to={`/internal/product/edit/details?unique_id=${data.unique_id}`} className="xui-text-dc-none xui-d-inline-flex xui-flex-ai-center xui-btn psc-btn-blue xui-bdr-rad-half xui-font-sz-50">
+																	<Link to={`/internal/product/edit/details?unique_id=${data.unique_id}`} className="xui-text-dc-none xui-d-inline-flex xui-flex-ai-center xui-btn xui-btn-blue xui-bdr-rad-half xui-font-sz-50">
 																		<Edit width="20" height="20" />
 																	</Link>
 																	<button title="Product Images"
@@ -533,11 +534,11 @@ export default function Products() {
 																			UploadProductImagesSetProductUniqueId(data.unique_id);
 																			getAProduct(data.unique_id)
 																		}}
-																		className="xui-d-inline-flex xui-flex-ai-center xui-btn psc-btn-blue xui-bdr-rad-half xui-font-sz-50" xui-modal-open="viewProductImagesModal">
+																		className="xui-d-inline-flex xui-flex-ai-center xui-btn xui-btn-blue xui-bdr-rad-half xui-font-sz-50" xui-modal-open="viewProductImagesModal">
 																		<Image width="20" height="20" />
 																	</button>
 																	<button title="Delete Product" onClick={() => { DeleteProductSetUniqueId(data.unique_id); }} className="xui-d-inline-flex xui-flex-ai-center xui-btn psc-btn-red xui-bdr-rad-half xui-font-sz-50" xui-modal-open="deleteProductModal">
-																		<Delete width="16" height="16" />
+																		<Delete width="20" height="20" />
 																	</button>
 																</div>
 															</td>
@@ -687,23 +688,30 @@ export default function Products() {
 											<p className="xui-opacity-4 xui-font-sz-100 xui-m-half"><span className="xui-font-w-bold">Price -</span> USD {viewProduct.data.sales_price ? <>{viewProduct.data.sales_price.toLocaleString()} <s> USD {viewProduct.data.price.toLocaleString()}</s> </> : viewProduct.data.price.toLocaleString()}</p>
 											<p className="xui-opacity-4 xui-font-sz-100 xui-m-half"><span className="xui-font-w-bold">Remaining / Quantity (Max Quantity) -</span> {viewProduct.data.remaining.toLocaleString()} / {viewProduct.data.quantity.toLocaleString()} ({viewProduct.data.max_quantity.toLocaleString()})</p>
 											<hr></hr>
-											<p className="xui-opacity-4 xui-font-sz-100 xui-m-half">Specification: </p>
+											<p className="xui-opacity-4 xui-font-sz-100 xui-m-half"><span className="xui-font-w-bold">Specification: </span></p>
 											<p className="xui-opacity-4 xui-font-sz-100 xui-m-half">
-												<span className="xui-font-w-bold">
-													{/* {
+												{/* <span className="xui-font-w-bold">
+													{
 														getObjectValues(viewProduct.data.specification).map(val => {
 															return val;
 														})
-													} */}
+													}
 													{viewProduct.data.specification}
-												</span>
+												</span> */}
+												<div data-color-mode="light">
+													<MarkdownPreview source={viewProduct.data.specification} />
+												</div>
 											</p>
 											<hr></hr>
 											<p className="xui-opacity-4 xui-font-sz-100 xui-m-half"><span className="xui-font-w-bold">Views -</span> {viewProduct.data.views.toLocaleString()}</p>
 											<p className="xui-opacity-4 xui-font-sz-100 xui-m-half"><span className="xui-font-w-bold">Favorites -</span> {viewProduct.data.favorites.toLocaleString()}</p>
 											<hr></hr>
-											<p className="xui-opacity-4 xui-font-sz-100 xui-m-half">Description: </p>
-											<p className="xui-opacity-4 xui-font-sz-100 xui-m-half">{viewProduct.data.description}</p>
+											<p className="xui-opacity-4 xui-font-sz-100 xui-m-half"><span className="xui-font-w-bold">Description: </span></p>
+											<p className="xui-opacity-4 xui-font-sz-100 xui-m-half">
+												<div data-color-mode="light">
+													<MarkdownPreview source={viewProduct.data.description} />
+												</div>
+											</p>
 											<hr></hr>
 											<p className="xui-opacity-4 xui-font-sz-100 xui-m-half"><span className="xui-font-w-bold">Status - </span> 
 												{
